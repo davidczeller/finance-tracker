@@ -60,10 +60,6 @@ pids/
 # Debug
 .node-debug*
 
-# Sequelize
-.sequelizerc
-config/config.json
-
 # Optional npm cache directory
 .npm
 

@@ -13,7 +13,7 @@ A full-stack finance tracking application built with Next.js and Express.js.
 
 ### Backend
 - Express.js
-- Sequelize ORM
+- TypeORM
 - PostgreSQL
 - Jade Template Engine
 
@@ -117,8 +117,8 @@ FE/
 ```
 BE/
 ├── routes/ # API routes
-├── models/ # Sequelize models
-├── migrations/ # Database migrations
+├── models/ # TypeORM entities
+├── migrations/ # TypeORM migrations
 ├── config/ # Configuration files
 └── package.json
 ```
@@ -141,7 +141,7 @@ To run database migrations:
 
 ```bash
 cd BE
-npx sequelize-cli db:migrate
+npm run typeorm migration:run
 ```
 
 ## API Documentation

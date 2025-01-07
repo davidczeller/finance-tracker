@@ -2,6 +2,9 @@ FROM node:18
 
 WORKDIR /app
 
+# Install netcat for wait-for-it script
+RUN apt-get update && apt-get install -y netcat-traditional
+
 COPY package*.json ./
 
 RUN npm install
