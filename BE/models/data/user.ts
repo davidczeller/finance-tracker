@@ -14,7 +14,7 @@ export class User {
   @Column()
   password_hash: string;
 
-  @Column()
+  @Column({ nullable: true })
   refresh_token: string;
 
   @CreateDateColumn()

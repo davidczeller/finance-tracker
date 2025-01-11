@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
 
-type User = {
+export type User = {
   id?: string;
   name: string;
   email: string;
