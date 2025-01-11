@@ -11,6 +11,12 @@ export class User {
   @Column({ unique: true })
   email: string;
 
+  @Column()
+  password_hash: string;
+
+  @Column()
+  refresh_token: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

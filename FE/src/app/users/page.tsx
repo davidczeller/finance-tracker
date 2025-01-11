@@ -7,6 +7,7 @@ type User = {
   id?: string;
   name: string;
   email: string;
+  password: string;
 };
 
 export default function Users() {
@@ -37,7 +38,12 @@ export default function Users() {
 
   const createUser = async () => {
     try {
-      const response = await api.post("/users", { name: newUser?.name, email: newUser?.email });
+      const response = await api.post("/users", {
+        name: newUser?.name,
+        email: newUser?.email,
+        password: newUser?.password,
+        // password2: newUser?.password2,
+      });
       console.log(response.data);
       fetchUsers();
       setNewUser(null);
@@ -78,7 +84,7 @@ export default function Users() {
             {user.name} - {user.email}
             {user.id && (
               <>
-                <button onClick={() => deleteUser(user.id)}>Delete</button>
+                <button onClick={() => user.id && deleteUser(user.id)}>Delete</button>
                 <button onClick={() => setSelectedUser(user)}>Edit</button>
               </>
             )}
@@ -97,6 +103,7 @@ export default function Users() {
             : setNewUser({
                 name: e.target.value || "",
                 email: newUser?.email || "",
+                password: newUser?.password || "",
               })
         }
         value={newUser?.name || selectedUser?.name || ""}
@@ -113,12 +120,25 @@ export default function Users() {
             : setNewUser({
                 name: newUser?.name || "",
                 email: e.target.value,
+                password: newUser?.password || "",
               })
         }
         value={newUser?.email || selectedUser?.email || ""}
       />
+      <input
+        type="password"
+        placeholder="Password"
+        onChange={e =>
+          setNewUser({
+            name: newUser?.name || "",
+            email: newUser?.email || "",
+            password: e.target.value || "",
+          })
+        }
+        value={newUser?.password || ""}
+      />
       {selectedUser ? (
-        <button onClick={() => editUser(selectedUser.id, selectedUser)}>Save</button>
+        <button onClick={() => selectedUser.id && editUser(selectedUser.id, selectedUser)}>Save</button>
       ) : (
         <button onClick={createUser}>Create User</button>
       )}

@@ -5,7 +5,11 @@ import cors from "cors";
 import { AppDataSource } from "./data-source";
 import indexRouter from "./routes/index";
 import usersRouter from "./routes/users";
+import authRouter from "./routes/auth/token.auth";
+import dotenv from "dotenv";
 
+dotenv.config();
+console.log(process.env.DB_HOST);
 const app = express();
 
 // Update CORS configuration
@@ -30,6 +34,7 @@ AppDataSource.initialize()
 
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
+app.use("/auth", authRouter);
 
 // error handler
 app.use(function (err, req, res, next) {

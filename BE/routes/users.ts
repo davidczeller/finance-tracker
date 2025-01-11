@@ -1,6 +1,8 @@
 import express from "express";
-import { User } from "../models/user";
+import { User } from "../models/data/user";
+import { User as ContractUser } from "../models/contract/user.contract";
 import { AppDataSource } from "../data-source";
+import * as bcrypt from "bcrypt";
 
 const router = express.Router();
 
@@ -18,7 +20,13 @@ router.get("/", async (req: express.Request, res: express.Response, next: expres
 router.post("/", async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
     const userRepository = AppDataSource.getRepository(User);
-    const user = userRepository.create(req.body);
+    const requestUser = req.body as ContractUser;
+    const passwordHash = await bcrypt.hash(requestUser.password, 10);
+    const databaseUser = {
+      ...requestUser,
+      password_hash: passwordHash,
+    };
+    const user = userRepository.create(databaseUser);
     await userRepository.save(user);
     res.status(201).json(user);
   } catch (error) {

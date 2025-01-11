@@ -1,0 +1,8 @@
+POST http://localhost:8000/auth/token
+Content-Type: application/json
+
+{
+  "grant_type": "password",
+  "username": "dsa@dsa.dsa",
+  "password": "dsa"
+}
