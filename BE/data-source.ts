@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD || "admin1234",
   database: process.env.DB_NAME || "finance_tracker_db",
   synchronize: true,
-  logging: true,
+  logging: false,
   entities: [User],
   migrations: ["src/migrations/*.ts"],
   subscribers: [],

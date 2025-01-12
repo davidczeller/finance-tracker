@@ -3,6 +3,7 @@
 import api from "@/lib/api";
 import React, { useState } from "react";
 import { User } from "../users/page";
+import { Button, Container, Input } from "./styles.login";
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
@@ -61,10 +62,11 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <Container>
+      <h1 style={{ textAlign: "center", color: "#5C8A5C" }}>Moneytor</h1>
       {isLogin ? (
         <>
-          <input
+          <Input
             type="text"
             placeholder="Email"
             onChange={e =>
@@ -75,7 +77,7 @@ export default function Login() {
               })
             }
           />
-          <input
+          <Input
             type="password"
             placeholder="Password"
             onChange={e =>
@@ -86,11 +88,11 @@ export default function Login() {
               })
             }
           />
-          <button onClick={handleLogin}>Login</button>
+          <Button onClick={handleLogin}>Login</Button>
         </>
       ) : (
         <>
-          <input
+          <Input
             type="text"
             placeholder="Name"
             onChange={e =>
@@ -101,8 +103,8 @@ export default function Login() {
               })
             }
           />
-          <input
-            type="text"
+          <Input
+            type="email"
             placeholder="Email"
             onChange={e =>
               setNewUser({
@@ -112,8 +114,8 @@ export default function Login() {
               })
             }
           />
-          <input
-            type="text"
+          <Input
+            type="password"
             placeholder="Password"
             onChange={e =>
               setNewUser({
@@ -123,14 +125,25 @@ export default function Login() {
               })
             }
           />
-          <button onClick={createUser}>Register</button>
+          <Button onClick={createUser}>Register</Button>
         </>
       )}
-      <p>
-        <button onClick={() => (isLogin ? setIsLogin(false) : setIsLogin(true))}>
-          {isLogin ? " You don't have an account yet? Register!" : "Do you already have an account? Login!"}
-        </button>
-      </p>
-    </div>
+
+      {isLogin ? (
+        <div>
+          You don't have an account yet? &nbsp;
+          <span onClick={() => setIsLogin(false)} style={{ color: "red", cursor: "pointer" }}>
+            Register!
+          </span>
+        </div>
+      ) : (
+        <div>
+          Do you already have an account? &nbsp;
+          <span onClick={() => setIsLogin(true)} style={{ color: "green", cursor: "pointer" }}>
+            Login!
+          </span>
+        </div>
+      )}
+    </Container>
   );
 }
