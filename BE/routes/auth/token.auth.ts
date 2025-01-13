@@ -16,7 +16,7 @@ router.post("/token", async (req: express.Request, res: express.Response, next: 
       return;
     }
     const passwordMatch = await bcrypt.compare(tokenInput.password, db_user.password_hash);
-    console.log({passwordMatch}, tokenInput.password, db_user.password_hash);
+    console.log({ passwordMatch }, tokenInput.password, db_user.password_hash);
     if (!passwordMatch) {
       res.status(401).json({ message: "Invalid credentials" });
       return;
@@ -30,7 +30,14 @@ router.post("/token", async (req: express.Request, res: express.Response, next: 
     await AppDataSource.getRepository(User).update(db_user.id, updatedUser);
 
     console.log({ tokenInput });
-    return res.status(200).json({ message: "Token created", token, refreshToken });
+    return res.status(200).json({
+      message: "Token created",
+      token,
+      refreshToken,
+      name: db_user.name,
+      email: db_user.email,
+      id: db_user.id,
+    });
   } catch (error) {
     console.error("Error creating token:", error.message);
     next(error);

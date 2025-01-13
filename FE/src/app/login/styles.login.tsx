@@ -4,12 +4,30 @@ export function Container({ children }: { children: React.ReactNode }) {
       {children}
       <style jsx>{`
         .container {
+          display: grid;
+          place-items: center;
+          height: 100vh;
+        }
+      `}</style>
+    </div>
+  );
+}
+
+export function InnerContainer({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="inner-container">
+      {children}
+      <style jsx>{`
+        .inner-container {
+          position: relative;
           display: flex;
           flex-direction: column;
           gap: 1rem;
           max-width: 400px;
           margin: 2rem auto;
           padding: 1rem;
+          min-height: 240px;
+          transition: all 0.3s ease-in-out;
         }
       `}</style>
     </div>
@@ -72,6 +90,7 @@ export function Button({ children, ...props }: React.ButtonHTMLAttributes<HTMLBu
           transition: all 150ms;
           cursor: pointer;
           border: none;
+          position: relative;
         }
         .button:hover {
           background-color: hsl(240 5.9% 20%);
